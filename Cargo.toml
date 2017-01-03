@@ -1,0 +1,8 @@
+[package]
+name = "blade"
+version = "0.1.0"
+authors = ["sinhrks <sinhrks@gmail.com>"]
+
+[dependencies]
+num = "0.1.35"
+rulinalg = "0.4.0"
