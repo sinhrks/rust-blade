@@ -14,7 +14,7 @@ pub enum Regularization<T> {
     None,
     L1(T),
     L2(T),
-    L1L2(T, T)
+    L1L2(T, T),
 }
 
 // ------------------------------------------------------------------
@@ -27,9 +27,7 @@ pub struct LinearTrainer<T> {
 
 impl<T> Default for LinearTrainer<T> {
     fn default() -> Self {
-        LinearTrainer {
-            regularizer: Regularization::None,
-        }
+        LinearTrainer { regularizer: Regularization::None }
     }
 }
 
@@ -41,31 +39,31 @@ impl SupervisedTrainable<f64, f64> for LinearTrainer<f64> {
         let ones = Matrix::<f64>::ones(data.len(), 1);
         let full = ones.hcat(data.data());
         let xt = full.transpose();
-        let params = (&xt * full).solve(&xt * data.target())
-                                 .expect("Unable to solve linear equation.");
+        let params = (&xt * full)
+            .solve(&xt * data.target())
+            .expect("Unable to solve linear equation.");
 
         let intercept = unsafe { *params.get_unchecked(0) };
         // ToDo: better way to spit?
         let coefs = Vector::new(params.into_iter().skip(1).collect::<Vec<f64>>());
 
-        /*
-        let ones = Matrix::<f64>::ones(inputs.rows(), 1);
-        let full_inputs = ones.hcat(inputs);
-        let xt = full_inputs.transpose();
+        // let ones = Matrix::<f64>::ones(inputs.rows(), 1);
+        // let full_inputs = ones.hcat(inputs);
+        // let xt = full_inputs.transpose();
         // cancel regularization of intercept
-        let mut eye = Matrix::<f64>::identity(inputs.cols() + 1);
-        unsafe {
-            *eye.get_unchecked_mut([0, 0]) = 0.
-        }
-        let left = &xt * full_inputs + eye * self.alpha;
-        let right = &xt * targets;
-        self.parameters = Some(left.solve(right).expect("Unable to solve linear equation."));
-        Ok(())
-        */
+        // let mut eye = Matrix::<f64>::identity(inputs.cols() + 1);
+        // unsafe {
+        // eye.get_unchecked_mut([0, 0]) = 0.
+        // }
+        // let left = &xt * full_inputs + eye * self.alpha;
+        // let right = &xt * targets;
+        // self.parameters = Some(left.solve(right).expect("Unable to solve linear equation."));
+        // Ok(())
+        //
 
         let lm = LinearModel {
             coefs: coefs,
-            intercept: intercept
+            intercept: intercept,
         };
         Ok(lm)
     }
@@ -77,11 +75,10 @@ impl SupervisedTrainable<f64, f64> for LinearTrainer<f64> {
 
 pub struct LinearModel<D> {
     coefs: Vector<D>,
-    intercept: D
+    intercept: D,
 }
 
 impl<D> LinearModel<D> {
-
     pub fn coefs(&self) -> &Vector<D> {
         &self.coefs
     }
@@ -98,7 +95,7 @@ impl Predictable<f64> for LinearModel<f64> {
         let predicted = data.data() * &self.coefs + self.intercept;
         let lr = LinearResult {
             actual: None,
-            predicted: predicted
+            predicted: predicted,
         };
         Ok(lr)
     }
@@ -114,7 +111,6 @@ pub struct LinearResult<D> {
 }
 
 impl<D> LinearResult<D> {
-
     pub fn actual(&self) -> &Vector<D> {
         if let &Some(ref actual) = &self.actual {
             actual

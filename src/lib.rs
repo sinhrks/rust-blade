@@ -3,7 +3,8 @@ extern crate num;
 extern crate rulinalg;
 
 pub mod linalg {
-    pub use rulinalg::matrix::{Axes, Matrix, MatrixSlice, MatrixSliceMut, BaseMatrix, BaseMatrixMut};
+    pub use rulinalg::matrix::{Axes, Matrix, MatrixSlice, MatrixSliceMut, BaseMatrix,
+                               BaseMatrixMut};
     pub use rulinalg::vector::Vector;
 }
 

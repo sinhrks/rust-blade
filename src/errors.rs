@@ -28,7 +28,7 @@ pub enum ErrorKind {
     /// The action could not be carried out as the model was in an invalid state.
     InvalidState,
     /// Linear algebra related error
-    LinearAlgebra
+    LinearAlgebra,
 }
 
 impl Error {
@@ -50,7 +50,8 @@ impl Error {
 
 impl From<rulinalg::error::Error> for Error {
     fn from(e: rulinalg::error::Error) -> Error {
-        Error::new(ErrorKind::LinearAlgebra, <rulinalg::error::Error as error::Error>::description(&e))
+        Error::new(ErrorKind::LinearAlgebra,
+                   <rulinalg::error::Error as error::Error>::description(&e))
     }
 }
 

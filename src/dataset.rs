@@ -1,21 +1,18 @@
 use linalg::{BaseMatrix, Matrix, Vector};
 
 pub struct Dataset<D> {
-    data: Matrix<D>
+    data: Matrix<D>,
 }
 
 impl<D> Dataset<D> {
-
     pub fn new(data: Matrix<D>) -> Self {
-        Dataset {
-            data: data
-        }
+        Dataset { data: data }
     }
 
     pub fn with_labels<T>(data: Matrix<D>, target: Vector<T>) -> SupervisedDataset<D, T> {
         SupervisedDataset {
             data: data,
-            target: target
+            target: target,
         }
     }
 
@@ -30,30 +27,27 @@ impl<D> Dataset<D> {
     pub fn set_target<T>(self, target: Vector<T>) -> SupervisedDataset<D, T> {
         SupervisedDataset {
             data: self.data,
-            target: target
+            target: target,
         }
     }
 }
 
 pub struct SupervisedDataset<D, T> {
     data: Matrix<D>,
-    target: Vector<T>
+    target: Vector<T>,
 }
 
 impl<D, T> SupervisedDataset<D, T> {
-
     pub fn new(data: Matrix<D>, target: Vector<T>) -> Self {
         SupervisedDataset {
             data: data,
-            target: target
+            target: target,
         }
     }
 
     // temp
     pub fn strip(self) -> Dataset<D> {
-        Dataset {
-            data: self.data
-        }
+        Dataset { data: self.data }
     }
 
     pub fn len(&self) -> usize {

@@ -28,14 +28,8 @@ pub trait Evaluable<T> {
     fn predicted(&self) -> T;
 }
 
-pub trait RegressionEvaluable<T> : Evaluable<T> {
+pub trait RegressionEvaluable<T>: Evaluable<T> {}
 
-}
+pub trait ClassificationEvaluable<T>: Evaluable<T> {}
 
-pub trait ClassificationEvaluable<T> : Evaluable<T> {
-
-}
-
-pub trait ClusteringEvaluable<T> : Evaluable<T> {
-
-}
+pub trait ClusteringEvaluable<T>: Evaluable<T> {}
