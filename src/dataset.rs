@@ -71,7 +71,8 @@ mod tests {
 
     #[test]
     fn test_data() {
-        let m = matrix![1., 2.;
+        let m =
+            matrix![1., 2.;
                         2., 3.];
         let t = Vector::new(vec![0, 1]);
         let d = Dataset::new(m);

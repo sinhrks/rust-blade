@@ -22,7 +22,8 @@ use dataset::SupervisedDataset;
 /// Thomas A. Ryan, Brian L. Joiner, Barbara F. Ryan. (1976).
 /// Minitab student handbook. Duxbury Press
 pub fn load() -> SupervisedDataset<f64, f64> {
-    let data = matrix![8.3, 70.;
+    let data =
+        matrix![8.3, 70.;
                        8.6, 65.;
                        8.8, 63.;
                        10.5, 72.;
@@ -53,8 +54,38 @@ pub fn load() -> SupervisedDataset<f64, f64> {
                        18.0, 80.;
                        18.0, 80.;
                        20.6, 87.];
-    let target = vec![10.3, 10.3, 10.2, 16.4, 18.8, 19.7, 15.6, 18.2, 22.6, 19.9, 24.2, 21.0,
-                      21.4, 21.3, 19.1, 22.2, 33.8, 27.4, 25.7, 24.9, 34.5, 31.7, 36.3, 38.3,
-                      42.6, 55.4, 55.7, 58.3, 51.5, 51.0, 77.0];
+    let target = vec![
+        10.3,
+        10.3,
+        10.2,
+        16.4,
+        18.8,
+        19.7,
+        15.6,
+        18.2,
+        22.6,
+        19.9,
+        24.2,
+        21.0,
+        21.4,
+        21.3,
+        19.1,
+        22.2,
+        33.8,
+        27.4,
+        25.7,
+        24.9,
+        34.5,
+        31.7,
+        36.3,
+        38.3,
+        42.6,
+        55.4,
+        55.7,
+        58.3,
+        51.5,
+        51.0,
+        77.0,
+    ];
     SupervisedDataset::new(data, Vector::new(target))
 }

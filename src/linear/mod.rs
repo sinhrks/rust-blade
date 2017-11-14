@@ -39,9 +39,9 @@ impl SupervisedTrainable<f64, f64> for LinearTrainer<f64> {
         let ones = Matrix::<f64>::ones(data.len(), 1);
         let full = ones.hcat(data.data());
         let xt = full.transpose();
-        let params = (&xt * full)
-            .solve(&xt * data.target())
-            .expect("Unable to solve linear equation.");
+        let params = (&xt * full).solve(&xt * data.target()).expect(
+            "Unable to solve linear equation.",
+        );
 
         let intercept = unsafe { *params.get_unchecked(0) };
         // ToDo: better way to spit?
@@ -132,7 +132,8 @@ mod tests {
 
     #[test]
     fn test_data() {
-        let m = matrix![1., 2.;
+        let m =
+            matrix![1., 2.;
                         2., 3.];
         let t = Vector::new(vec![0, 1]);
         let d = Dataset::new(m);
